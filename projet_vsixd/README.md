@@ -14,7 +14,7 @@ Installer les dépendances avec Composer.
 Configurer la base de données dans le fichier .env.
 Créer la base de données et exécuter les migrations.
 Créer un compte administrateur en utilisant la commande php bin/console app:create-admin.
-Démarrer le serveur de développement avec la commande symfony server:start.
+Démarrer le serveur de développement avec la commande symfony server:start ou php -S localhost:3000 -t public.
 Fonctionnalités Principales
 Se Connecter
 Types d'utilisateurs : Administrateur, Employés
