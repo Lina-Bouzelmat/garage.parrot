@@ -1,0 +1,38 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    numeros: '+1234567890'
+    images_directory: '%kernel.project_dir%/image'
+
+services:
+
+    # Configuration par défaut pour les services dans ce fichier
+    _defaults:
+        autowire: true      # Injecte automatiquement les dépendances dans vos services.
+        autoconfigure: true # Enregistre automatiquement vos services en tant que commandes, abonnés d'événements, etc.
+
+    # Définition de service pour la classe Horaire
+    App\Entity\Horaire: ~
+
+    # Définition de service pour la classe TemoignageService
+    App\Service\TemoignageService:
+        autowire: true
+
+    
+    Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface: '@security.password_hasher'
+
+
+    # Permet d'utiliser les classes de src/ en tant que services
+    # Cela crée un service par classe dont l'ID est le nom de classe entièrement qualifié
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # Ajoutez d'autres définitions de service lorsque vous avez besoin d'une configuration explicite
+    # Notez que les dernières définitions remplacent toujours les précédentes

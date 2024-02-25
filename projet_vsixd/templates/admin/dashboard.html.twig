@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+        .content {
+            font-family: 'Barlow', sans-serif;
+            color: #262526;
+            background-color: #F2F2F2;
+        }
+        .navi{
+            background-color: #2B2B2B;
+            font-family: 'Barlow', sans-serif;
+            color: #938989;
+        }
+
+        .boutton {
+            font-family: 'Bahnschrift', serif;
+            background-color: #CA3232;
+            border-style: inset;
+            border-color: #D9777F;
+            padding: 4px;
+        }
+
+        .footer {
+            font-family: 'Barlow', sans-serif;
+            color: #C3C3C3;
+            background-color: #343A40;
+            text-align: left;
+        }
+
+        .logo {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+{% endblock %}
+{% block title %}Tableau de bord - Administration{% endblock %}
+
+{% block body %}
+    <h1>Tableau de bord - Administration</h1>
+    
+    <h2>Gestion des utilisateurs</h2>
+    <ul>
+        <li><a href="{{ path('admin_create_user') }}">Créer un nouvel utilisateur</a></li>
+        <li><a href="{{ path('admin_edit_user') }}">Modifier un utilisateur existant</a></li>
+        <li><a href="{{ path('admin_delete_user') }}">Supprimer un utilisateur</a></li>
+    </ul>
+
+    <h2>Gestion de la description sur la page d'accueil</h2>
+    <form method="post" action="{{ path('admin_update_description') }}">
+        <label for="description">Nouvelle description :</label>
+        <textarea id="description" name="description" rows="4" cols="50">{{ description }}</textarea>
+        <button class='boutton' type="submit">Enregistrer la description</button>
+    </form>
+    <h2>Gestion des horaires</h2>
+    <form method="post" action="{{ path('admin_update_schedule') }}">
+        <label for="opening_hours">Horaires d'ouverture :</label>
+        <input type="text" id="opening_hours" name="opening_hours" value="{{ opening_hours }}">
+        <br>
+        <label for="closing_hours">Horaires de fermeture :</label>
+        <input type="text" id="closing_hours" name="closing_hours" value="{{ closing_hours }}">
+        <br>
+        <button type="submit" class='boutton'>Enregistrer les horaires</button>
+    </form>
+
+    {# Ajoutez d'autres éléments d'administration selon vos besoins #}
+{% endblock %}

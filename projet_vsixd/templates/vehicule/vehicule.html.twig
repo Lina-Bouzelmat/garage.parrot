@@ -1,0 +1,174 @@
+{% extends 'base.html.twig' %}
+{% block head %}
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+{% block stylesheets %}
+    <style>
+        .content {
+            font-family: 'Barlow', sans-serif;
+            color: #262526;
+            background-color: #F2F2F2;
+        }
+        .navi{
+            background-color: #2B2B2B;
+            font-family: 'Barlow', sans-serif;
+            color: #938989;
+        }
+
+        .boutton {
+            font-family: 'Bahnschrift', serif;
+            background-color: #CA3232;
+            border-style: inset;
+            border-color: #D9777F;
+            padding: 4px;
+        }
+
+        .footer {
+            font-family: 'Barlow', sans-serif;
+            color: #C3C3C3;
+            background-color: #343A40;
+            text-align: left;
+        }
+
+        .logo {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+{% endblock %}
+</head>
+{% endblock %}
+{% block title %}Véhicules{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Filtres -->
+    <div class="row">
+        <div class="col-md-3">
+            <label for="prixMin">Prix Min:</label>
+            <input type="text" id="prixMin" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <label for="prixMax">Prix Max:</label>
+            <input type="text" id="prixMax" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <label for="kilometrage">Kilométrage:</label>
+            <input type="text" id="kilometrage" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <label for="annee">Année:</label>
+            <input type="text" id="annee" class="form-control">
+        </div>
+    </div>
+
+<div class="container">
+    <!-- Les résultats seront affichés ici -->
+    {% for vehicule in vehicules %}
+        {% if loop.index % 3 == 1 %}
+            <div class="row">
+        {% endif %}
+        
+        <div class="col-md-4">
+            <div class="vehicule-card">
+                <div class="vehicule-details">
+                    <h3>{{ vehicule.marque }} - {{ vehicule.modele }}</h3>
+                    <p><strong>Carburant:</strong> {{ vehicule.carburant }}</p>
+                    <p><strong>Prix:</strong> {{ vehicule.prix }}</p>
+                    <p><strong>Kilométrage:</strong> {{ vehicule.kilometrage }}</p>
+                    <p><strong>Porte:</strong> {{ vehicule.porte }}</p>
+                    <p><strong>Place:</strong> {{ vehicule.place }}</p>
+                    <p><strong>Détails:</strong> {{ vehicule.details|nl2br }}</p>
+                    <p><strong>Date mise en circulation:</strong> {{ vehicule.publishedVh ? vehicule.publishedVh.format('Y-m-d H:i:s') : '' }}</p>
+                </div>
+                <div class="vehicule-image">
+                {% if vehicule.imageName %}
+        <img src="{{ vich_uploader_asset(vehicule, 'imageFile') }}" alt="Image du véhicule">
+    {% endif %}
+                </div>
+                <div class="vehicule-contact">
+                    <a class='boutton' href="{{ path('contact') }}">Nous contacter ici</a>
+                </div>
+            </div>
+        </div>
+
+        {% if loop.index % 3 == 0 or loop.last %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+                </tbody>
+            </table>
+</div>
+
+<!-- Script JavaScript pour les filtres et la mise à jour des résultats -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const prixMinInput = document.getElementById(prixMin);
+    const prixMaxInput = document.getElementById(prixMax);
+    const kilometrageInput = document.getElementById(kilometrage);
+    const anneeInput = document.getElementById(annee);
+    const resultatsBody = document.getElementById('resultats');
+
+    prixMinInput.addEventListener('input', mettreAJourResultats);
+    prixMaxInput.addEventListener('input', mettreAJourResultats);
+    kilometrageInput.addEventListener('input', mettreAJourResultats);
+    anneeInput.addEventListener('input', mettreAJourResultats);
+
+    function mettreAJourResultats() {
+        const prixMin = prixMinInput.value;
+        const prixMax = prixMaxInput.value;
+        const kilometrage = kilometrageInput.value;
+        const annee = anneeInput.value;
+
+                const url = '/vehicules';
+
+        //  une requête AJAX au serveur avec les valeurs des filtres
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({ prixMin, prixMax, kilometrage, annee }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // mise à jour les résultats dans la balise <tbody> avec l'ID 'resultats'
+            resultatsBody.innerHTML = '';
+            data.forEach(vehicule => {
+                resultatsBody.innerHTML += `
+                    <tr>
+                        <td>${vehicule.marque}</td>
+                        <td>${vehicule.modele}</td>
+                        <td>${vehicule.carburant}</td>
+                        <td>${vehicule.prix}</td>
+                        <td>${vehicule.kilometrage}</td>
+                        <td>${vehicule.porte}</td>
+                        <td>${vehicule.place}</td>
+                        <td>${vehicule.details}</td>
+                        <td>${vehicule.publishedVh}</td>
+                        <td><img src="${vehicule.image}" alt="Image du véhicule"></td>
+                    </tr>
+                `;
+            });
+        })
+        .catch(error => console.error('Erreur lors de la récupération des résultats:', error));
+    }
+});
+</script>
+{% endblock %}
+
+{% block footer%}
+<div class='footer' id="resultats">
+    <!-- Les résultats seront affichés ici de horaire entity -->
+    {% for horaire in horaire %}
+        <div>
+            <strong></strong> {{ horaire.jour }} {{ horaire.matin }} {{ horaire.soir }}
+        </div>
+    {% else %}
+        <p>Aucun horaire disponible.</p>
+    {% endfor %}
+</div>
+{% endblock %}

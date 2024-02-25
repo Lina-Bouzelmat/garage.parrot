@@ -1,0 +1,13 @@
+easy_admin:
+    entities:
+        Admin:
+            class: App\Entity\Admin
+            list:
+                fields:
+                    - email
+                    - { property: 'roles', label: 'Roles' }
+            form:
+                fields:
+                    - email
+                    - { property: 'password', type: 'password' }
+                    - { property: 'roles', label: 'Roles' }

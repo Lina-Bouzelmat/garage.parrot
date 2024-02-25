@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        .content {
+            font-family: 'Barlow', sans-serif;
+            color: #262526;
+            background-color: #F2F2F2;
+        }
+        .navi{
+            font-family: 'Barlow', sans-serif;
+            color: #938989;
+        }
+
+        .boutton {
+            font-family: 'Bahnschrift', serif;
+            background-color: #CA3232;
+            border-style: inset;
+            border-color: #D9777F;
+            padding: 4px;
+        }
+        .footer {
+            font-family: 'Barlow', sans-serif;
+            color: #C3C3C3;
+            background-color: #343A40;
+            text-align: left;
+        }
+
+        .logo {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+<div class="content container-fluid " style="color:dark">
+    <!-- Logo -->
+    <img src="{{ asset('/logo.png') }}" alt="Logo" class="logo">
+    {% for description in description %}
+    <p>{{ description.description }}</p>
+{% endfor %}
+
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">nom</th>
+                        <th scope="col">commentaire</th>
+                        <th scope="col">note</th>
+                    </tr>
+                </thead>
+                <tbody id="resultats">
+                    <!-- Les résultats seront affichés ici -->
+                    {% for temoignage in temoignages %}
+                    <tr>
+                        <td>{{ temoignage.nom }}</td>
+                        <td>{{ temoignage.commentaire }}</td>
+                        <td>{{ temoignage.note }}</td>
+                    </tr>
+                    {% else %}
+                        <li>Aucun témoignage encore posté.</li>
+                    {% endfor %}
+                    <a  class='boutton' href="{{ path('app_temoignage_edit') }}">Ajouter un témoignage</a>
+                </tbody>
+            </table>
+        </div>
+    
+{% endblock %}
+{% block footer%}
+    <!-- Les résultats seront affichés ici -->
+    {% for horaire in horaire %}
+        <div class="footer">
+            <strong></strong> {{ horaire.jour }} {{ horaire.matin }} {{ horaire.soir }}
+        </div>
+    {% else %}
+        <p>Aucun horaire disponible.</p>
+    {% endfor %}
+{% endblock %}

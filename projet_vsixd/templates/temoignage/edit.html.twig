@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+        .content {
+            font-family: 'Barlow', sans-serif;
+            color: #262526;
+            background-color: #F2F2F2;
+        }
+        .navi{
+            background-color: #2B2B2B;
+            font-family: 'Barlow', sans-serif;
+            color: #938989;
+        }
+
+        .boutton {
+            font-family: 'Bahnschrift', serif;
+            background-color: #CA3232;
+            border-style: inset;
+            border-color: #D9777F;
+            padding: 4px;
+        }
+
+        .footer {
+            font-family: 'Barlow', sans-serif;
+            color: #C3C3C3;
+            background-color: #343A40;
+            text-align: left;
+        }
+
+        .logo {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+{% endblock %}
+{% block title %}
+    {% if mode == 'new' %}
+        Ajouter un Témoignage
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1>
+        {% if mode == 'new' %}
+            Ajouter un Témoignage
+        {% endif %}
+    </h1>
+
+    <form method="post" enctype="multipart/temform-data">
+            {{ form_row(temform.nom) }}
+            {{ form_row(temform.commentaire) }}
+            {{ form_row(temform.note) }}
+            <button type="submit" class="boutton">Enregistrer</button>
+            
+    </form>
+    <div>
+            <br>
+            <a href="{{ path('temoignage_list_public') }}" class="boutton" >Retour à la liste des témoignages</a>
+            </div>
+{% endblock %}
+{% block footer%}
+<div class='footer' id="resultats">
+    <!-- Les résultats seront affichés ici -->
+    {% for horaire in horaire %}
+        <div>
+            <strong></strong> {{ horaire.jour }} {{ horaire.matin }} {{ horaire.soir }}
+        </div>
+    {% else %}
+        <p>Aucun horaire disponible.</p>
+    {% endfor %}
+</div>
+{% endblock %}

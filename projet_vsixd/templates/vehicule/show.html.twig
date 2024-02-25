@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+        .content {
+            font-family: 'Barlow', sans-serif;
+            color: #262526;
+            background-color: #F2F2F2;
+        }
+        .navi{
+            background-color: #2B2B2B;
+            font-family: 'Barlow', sans-serif;
+            color: #938989;
+        }
+
+        .boutton {
+            font-family: 'Bahnschrift', serif;
+            background-color: #CA3232;
+            border-style: inset;
+            border-color: #D9777F;
+            padding: 4px;
+        }
+
+        .footer {
+            font-family: 'Barlow', sans-serif;
+            color: #C3C3C3;
+            background-color: #343A40;
+            text-align: left;
+        }
+
+        .logo {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+{% endblock %}
+{% block title %}Voiture{% endblock %}
+{% block content %}
+    {# Titre de la page #}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{% if mode == 'new' %}Ajout{% else %}Modification{% endif %} - Voiture</h1>
+        </div>
+    </div>
+    <div class="container">
+        {{ form_start(form, {'method': 'POST', 'attr': {'novalidate': 'novalidate' }} ) }}
+        {# ------------------------- #}
+        {#      INFOS GÉNÉRALES      #}
+        {# ------------------------- #}
+        {% if mode == 'update' %}
+        <div class="panel-heading" >
+            <h4 class="panel-title" id="contact-panel-title">
+                <a data-group data-toggle="collapse" href="#info"><i class="fa fa-angle-double-down fa-fw"></i> Informations générales</a>
+            </h4>
+        </div>
+        {% endif %}
+        <div id="info" class="panel-collapse">
+            
+            {{ include('helpers/form/_group.html.twig', {
+                        'field': form['marque']
+                    }) }}
+            {{ include('helpers/form/_group.html.twig', {
+                        'field': form['details']
+                    }) }}
+                    
+        </div>
+        {# -------------------------------- #}
+        {#      INFOS COMPLÉMENTAIRES       #}
+        {# -------------------------------- #}
+        
+        {% if mode == 'update' %}
+        <div class="panel-heading" >
+            <h4 class="panel-title">
+                <a data-group data-toggle="collapse" href="#info-compl"><i class="fa fa-plus fa-fw"> Informations complémentaires</a>
+            </h4>
+        </div>
+        <div id="info-compl" class="panel-collapse table-responsive">
+            <table class="table table-condensed fiche">
+                <tbody>
+                    <tr>
+                        <td>Publication</td>
+                        <td>    
+                            Publié le {{ voiture.publishedVh | date("d-m-Y à H:i:s") }}
+                        </td>  
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        <div class="row">
+            {% if not form.vars.valid %}
+            <div class="col-md-8 error">
+                <i class="fa fa-exclamation-triangle fa-fw">
+                Le formulaire contient des erreurs. Vérifiez les différentes rubriques.
+            </div>
+            {% else %}
+                <div class="col-md-8"></div>
+            {% endif %} 
+            <div class="col-md-4 text-right">
+                {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-info'} }) }}
+            </div>
+        </div>
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+{% block footer%}
+<div class='footer' id="resultats">
+
+</div>
+{% endblock %}

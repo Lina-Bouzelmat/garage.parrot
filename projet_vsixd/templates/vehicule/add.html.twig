@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+        .content {
+            font-family: 'Barlow', sans-serif;
+            color: #262526;
+            background-color: #F2F2F2;
+        }
+        .navi{
+            background-color: #2B2B2B;
+            font-family: 'Barlow', sans-serif;
+            color: #938989;
+        }
+
+        .boutton {
+            font-family: 'Bahnschrift', serif;
+            background-color: #CA3232;
+            border-style: inset;
+            border-color: #D9777F;
+            padding: 4px;
+        }
+
+        .footer {
+            font-family: 'Barlow', sans-serif;
+            color: #C3C3C3;
+            background-color: #343A40;
+            text-align: left;
+        }
+    </style>
+{% endblock %}
+{% block title %}Ajouter un véhicule{% endblock %}
+
+{% block content %}
+    <div class="body">
+        <h2>Ajouter un véhicule</h2>
+        <form method="post" enctype="multipart/form-data">
+            {{ form_row(form.marque) }}
+            {{ form_row(form.modele) }}
+            {{ form_row(form.carburant) }}
+            {{ form_row(form.prix) }}
+            {{ form_row(form.kilometrage) }}
+            {{ form_row(form.porte) }}
+            {{ form_row(form.place) }}
+            {{ form_row(form.details) }}
+            {% if vehicule.imageName %}
+            <img src="{{ vich_uploader_asset(vehicule, 'imageFile') }}" alt="Image du véhicule">
+        {% endif %}
+
+        {{ form_row(form.imageFile) }} 
+
+        {{ form_row(form.imageFile) }}
+            <button type="submit" class="boutton">Enregistrer</button>
+        </form>
+    </div>

@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+        .content {
+            font-family: 'Barlow', sans-serif;
+            color: #262526;
+            background-color: #F2F2F2;
+        }
+        .navi{
+            background-color: #2B2B2B;
+            font-family: 'Barlow', sans-serif;
+            color: #938989;
+        }
+
+        .boutton {
+            font-family: 'Bahnschrift', serif;
+            background-color: #CA3232;
+            border-style: inset;
+            border-color: #D9777F;
+            padding: 4px;
+        }
+
+        .footer {
+            font-family: 'Barlow', sans-serif;
+            color: #C3C3C3;
+            background-color: #343A40;
+            text-align: left;
+        }
+
+        .logo {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+{% endblock %}
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+    <h1>Contactez-nous</h1>
+    <div class="contact-info">
+        <p>Pour plus d'informations, contactez-nous :</p>
+        <ul>
+            <li>Téléphone : <a href="tel:{{ numeros }}">{{ numeros }}</a></li>
+            <li>E-mail : <a href="mailto:{{ email }}">{{ email }}</a></li>
+        </ul>
+    </div>
+    <div class="contact-form">
+        {{ form_start(Contactform) }}
+        <div class="form-group">
+            <label for="firstName"></label>
+            {{ form_row(Contactform.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Votre prénom'}}) }}
+        </div>
+        <div class="form-group">
+            <label for="lastName"></label>
+            {{ form_row(Contactform.nom, {'attr': {'class': 'form-control', 'placeholder': 'Votre nom'}}) }}
+        </div>
+        <div class="form-group">
+            <label for="email"></label>
+            {{ form_row(Contactform.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre adresse e-mail'}}) }}
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber"></label>
+            {{ form_row(Contactform.numeros, {'attr': {'class': 'form-control', 'placeholder': 'Votre numéro de téléphone'}}) }}
+        </div>
+        <div class="form-group">
+            <label for="message"></label>
+            {{ form_row(Contactform.message, {'attr': {'class': 'form-control', 'placeholder': 'Votre message'}}) }}
+        </div>
+        <button type="submit" class='boutton'>Envoyer</button>
+        {{ form_end(Contactform) }}
+    </div>
+{% endblock %}

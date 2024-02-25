@@ -1,0 +1,162 @@
+homepage_user:
+    path: /
+    controller: App\Controller\HomeController::homepage_user
+
+homepage_admin:
+    path: /admin
+    controller: App\Controller\HomeController::homepage_admin
+
+vehicule_show:
+    path: /{id}
+    controller: App\Controller\VehiculeController::indexList
+    requirements:
+        id: '\d+'
+
+vehicule_add:
+    path: /add
+    controller: App\Controller\VehiculeController::edit
+
+vehicule_edit:
+    path: /edit/{id}
+    controller: App\Controller\VehiculeController::edit
+    requirements:
+        id: '\d+'
+
+vehicule_remove:
+    path: /remove/{id}
+    controller: App\Controller\VehiculeController::remove
+    requirements:
+        id: '\d+'
+
+vehicule_list_public:
+    path: /vehicules
+    controller: App\Controller\VehiculeController::indexList
+
+app_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+admin_login:
+    path: /admin/login
+    controller: App\Controller\SecurityController::createAdmin
+
+
+app_logout:
+    path: /logout
+
+app_register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+
+app_verify_email:
+    path: /verify/email
+    controller: App\Controller\RegistrationController::verifyUserEmail
+
+contact:
+    path: /contact
+    controller: App\Controller\ContactController::contact
+
+temoignage_list_public:
+    path: /temoignage
+    controller: App\Controller\TemoignageController::indexList
+
+app_temoignage_show:
+    path: /temoignage/{id}
+    controller: App\Controller\TemoignageController::show
+    requirements:
+        id: '\d+'
+
+app_temoignage_edit:
+    path: /temoignage/edit/{id?}
+    controller: App\Controller\TemoignageController::edit
+
+app_temoignage_add:
+    path: /temoignage/add
+    controller: App\Controller\TemoignageController::add
+
+temoignage_approve:
+    path: /temoignage/{id}/approve
+    controller: App\Controller\TemoignageController::approve
+    requirements:
+        id: '\d+'
+
+temoignage_delete:
+    path: /temoignage/{id}
+    controller: App\Controller\TemoignageController::delete
+    requirements:
+        id: '\d+'
+
+app_description_edit:
+    path: /description/edit/{id?}
+    controller: App\Controller\AdminController::editDescription
+    
+admin_description_edit:
+    path: /admin/description/edit
+    controller: App\Controller\AdminController::editDescription
+
+app_horaire_edit:
+    path: /horaire/edit/{id?}
+    controller: App\Controller\AdminController::editHoraire
+    
+admin_horaire_edit:
+    path: /admin/horaire/edit
+    controller: App\Controller\AdminController::editHoraire
+
+admin_user_create:
+    path: /admin/user/create
+    controller: App\Controller\AdminController::createUser
+    methods: [GET],[POST]
+
+admin_user_edit:
+    path: /admin/user/edit/{id}
+    controller: App\Controller\AdminController::editUser
+    requirements:
+        id: '\d+'
+
+admin_user_delete:
+    path: /admin/user/delete/{id}
+    controller: App\Controller\AdminController::deleteUser
+    requirements:
+        id: '\d+'
+
+app_description_add:
+    path: /description/add
+    controller: App\Controller\AdminController::saveDescription
+
+app_description_remove:
+    path: /description/remove
+    controller: App\Controller\AdminController::removeDescription
+
+app_horaire_add:
+    path: /horaire/add
+    controller: App\Controller\AdminController::saveHoraire
+
+app_horaire_remove:
+    path: /horaire/remove/{id}
+    controller: App\Controller\AdminController::removeHoraire
+    requirements:
+        id: '\d+'
+
+admin_edit:
+    path: /admin/edit/{id}
+    controller: App\Controller\AdminController::editAdmin
+    requirements:
+        id: '\d+'
+
+admin_remove:
+    path: /admin/remove/{id}
+    controller: App\Controller\AdminController::removeAdmin
+    requirements:
+        id: '\d+'
+
+admin_save:
+    path: /admin/save
+    controller: App\Controller\AdminController::saveAdmin
+
+admin_create:
+    path: /admin/create
+    controller: App\Controller\AdminController::createAdmin
+
+admin_dashboard:
+    path: /admin/dashboard
+    controller: App\Controller\AdminController::dashboard

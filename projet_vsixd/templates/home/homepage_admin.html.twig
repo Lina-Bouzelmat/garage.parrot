@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+        .content {
+            font-family: 'Barlow', sans-serif;
+            color: #262526;
+            background-color: #F2F2F2;
+        }
+        .navi{
+            font-family: 'Barlow', sans-serif;
+            color: #938989;
+        }
+
+        .boutton {
+            font-family: 'Bahnschrift', serif;
+            background-color: #CA3232;
+            border-style: inset;
+            border-color: #D9777F;
+            padding: 4px;
+        }
+
+        .footer {
+            font-family: 'Barlow', sans-serif;
+            color: #C3C3C3;
+            background-color: #343A40;
+            text-align: left;
+        }
+
+        .logo {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+{% endblock %}
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    {# Logo #}
+    <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="logo">
+    
+    {# Titre de la page #}
+    <h1 class="text-center" style="font-family: 'Rajdhani', sans-serif; color: #262526; font-weight: bold;">Bienvenue</h1>
+    
+    {# Texte de description #}
+    <p class="text-center">
+        Service offert par l'entreprise
+        Le Garage V. Parrot : Votre partenaire de confiance pour l'entretien et la réparation automobile à Toulouse depuis 2021.
+        <br><br>
+        Fort de 15 années d'expertise dans le domaine de la réparation automobile, Vincent Parrot a fondé son propre garage avec pour mission de fournir des services de haute qualité. Spécialisé dans la réparation de la carrosserie et de la mécanique, ainsi que dans l'entretien régulier des véhicules, notre équipe veille à garantir la performance et la sécurité de votre voiture.
+        <br><br>
+        En plus de nos services de réparation, nous proposons également une sélection de véhicules d'occasion soigneusement inspectés, pour répondre à tous vos besoins en matière de mobilité.
+        <br><br>
+        Chez Garage V. Parrot, nous considérons chaque voiture confiée comme un précieux bien, méritant une attention et des soins personnalisés. Notre engagement envers la satisfaction client et notre volonté de fournir un service de qualité sont au cœur de notre démarche.
+        <br><br>
+        Contactez-nous dès aujourd'hui et découvrez pourquoi notre garage est le choix idéal pour prendre soin de votre véhicule. Avec notre équipe compétente et dévouée, votre voiture est entre de bonnes mains. Bienvenue chez Garage V. Parrot, où la qualité rencontre la confiance.
+    </p>
+
+    <div class='boutton'>
+        <a href="{{ path('vehicule_add') }}" role="button" class="boutton">Ajouter un véhicule</a>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Marque</th>
+                <th scope="col">Modèle</th>
+                <th scope="col">Carburant</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Kilométrage</th>
+                <th scope="col">Porte</th>
+                <th scope="col">Place</th>
+                <th scope="col">Détails</th>
+                <th scope="col">Image</th>
+                <th scope="col">{# Bouton d'action - Supprimer #}</th>
+                <th scope="col">{# Bouton d'action - Modifier #}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vehicule in vehicule %}
+            <tr>
+                <th scope="row">{{ vehicule.id }}</th>
+                <td>{{ vehicule.marque }}</td>
+                <td>{{ vehicule.modele }}</td>
+                <td>{{ vehicule.carburant }}</td>
+                <td>{{ vehicule.prix }}</td>
+                <td>{{ vehicule.kilometrage }}</td>
+                <td>{{ vehicule.porte }}</td>
+                <td>{{ vehicule.place }}</td>
+                <td>{{ vehicule.details|nl2br }}</td>
+                <td>{{ vehicule.isPublished ? 'Oui' : 'Non' }}</td>
+                <td>{{ form_row(form.imageFile) }}</td>
+                <td>
+                    <a href="{{ path('vehicule_remove', {'id': vehicule.id}) }}" role="button" class="boutton">Supprimer</a>
+                </td>
+                <td>
+                    <a href="{{ path('vehicule_edit', {'id': vehicule.id}) }}" role="button" class="boutton">Modifier</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<footer class="footer bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-left">Horaires d'ouverture :</p>
+                    <ul class="list-unstyled">
+                        <li>Lundi : 8h45 - 12h00, 14h00 - 18h00</li>
+                        <li>Mardi : 8h45 - 12h00, 14h00 - 18h00</li>
+                        <li>Mercredi : 8h45 - 12h00, 14h00 - 18h00</li>
+                        <li>Jeudi : 8h45 - 12h00, 14h00 - 18h00</li>
+                        <li>Vendredi : 8h45 - 12h00</li>
+                        <li>Samedi : 9h00 - 12h00</li>
+                        <li>Dimanche : Fermé</li>   
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">Notre adresse :</p>
+                    <p class="text-right">Saint-Etienne 42100</p>
+                    <p class="text-right">25 Cr. Victor Hugo</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

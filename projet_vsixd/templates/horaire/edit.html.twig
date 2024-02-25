@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+        .content {
+            font-family: 'Barlow', sans-serif;
+            color: #262526;
+            background-color: #F2F2F2;
+        }
+        .navi{
+            background-color: #2B2B2B;
+            font-family: 'Barlow', sans-serif;
+            color: #938989;
+        }
+
+        .boutton {
+            font-family: 'Bahnschrift', serif;
+            background-color: #CA3232;
+            border-style: inset;
+            border-color: #D9777F;
+            padding: 4px;
+        }
+
+        .footer {
+            font-family: 'Barlow', sans-serif;
+            color: #C3C3C3;
+            background-color: #343A40;
+            text-align: left;
+        }
+{% endblock %}
+{% block title %}Éditer horaire{% endblock %}
+
+{% block content %}
+    <form method="post" enctype="multipart/horaireform-data">
+            {{ form_row(horaireform.Jour) }}
+            {{ form_row(horaireform.matin) }}
+            {{ form_row(horaireform.soir) }}
+            <button type="submit" class="boutton">Enregistrer</button>
+        </form>
+
+    <a href="{{ path('admin_dashboard') }}"  class="boutton">Retour au tableau de bord</a>
+{% endblock %}
